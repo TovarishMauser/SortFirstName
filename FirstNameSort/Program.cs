@@ -1,75 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FirstNameSort
 {
-    public delegate List<string> MethodContainer(List<string> list);
     class Program
     {
-        public event MethodContainer JustGo;
-        public event MethodContainer JustGoUnsort;
-
         static void Main(string[] args)
         {
-            Program prog = new Program();
-            List<string> firstName = new List<string>();
-
-            firstName.Add("Сидоров");
-            firstName.Add("Петров");
-            firstName.Add("Антонов");
-            firstName.Add("Павлов");
-            firstName.Add("Тростников");
-
-            prog.JustGo += prog.SortFirstName;
-            prog.JustGoUnsort += prog.UnsortFirstName;
-
-            int number;
+            Exception[] exeptions = new Exception[5];               //массив исключений                      
 
             try
             {
-                int.TryParse(Console.ReadLine(), out number);
-
-                if (number == 1)
-                {
-                    prog.JustGo(firstName);
-                }
-                if (number == 2)
-                {
-                    prog.JustGoUnsort(firstName);
-                }                
+                exeptions[0] = new DivideByZeroException();         //как мне их вызвать в блоке catch?
+                exeptions[1] = new FormatException();
+                exeptions[2] = new IndexOutOfRangeException();
+                exeptions[3] = new FileNotFoundException();
+                exeptions[4] = new SomeException();
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Divide by zero");
             }
             catch (FormatException ex)
             {
-                if (ex is FormatException)
-                {
-                    Console.WriteLine("Введите цифры 1/2");
-                    Console.WriteLine(ex.Message);                    
-                }
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Format exeption!");
             }
-            catch (MoreTwoException ex) 
+            catch (IndexOutOfRangeException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine("Out of range!");
             }
-            finally
+            catch (FileNotFoundException ex)
             {
-                foreach (var person in firstName)
-                {
-                    Console.WriteLine(person);
-                }
-            }           
-
-        }
-        public List<string> SortFirstName(List<string> users)
-        {
-            users.Sort();
-            return users;            
-        }
-
-        public List<string> UnsortFirstName(List<string> users)
-        {
-            users.Sort();
-            users.Reverse();
-            return users;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("File not exist!");
+            }
+            catch (SomeException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Some exeption!");
+            }
         }
     }
 }
