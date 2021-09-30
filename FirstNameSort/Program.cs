@@ -46,7 +46,7 @@ namespace FirstNameSort
                     Console.WriteLine(ex.Message);                    
                 }
             }
-            catch (MoreTwoException ex)
+            catch (MoreTwoException ex) 
             {
                 Console.WriteLine(ex.Message);
             }
