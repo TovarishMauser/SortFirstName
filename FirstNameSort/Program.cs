@@ -27,7 +27,8 @@ namespace FirstNameSort
 
             try
             {
-                int.TryParse(Console.ReadLine(), out number);
+                //int.TryParse(Console.ReadLine(), out number);
+                number = Convert.ToInt32(Console.ReadLine());
 
                 if (number == 1)
                 {
